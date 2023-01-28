@@ -106,34 +106,34 @@ class TestCreateUser(TestCase):
         self.assertEqual(self.admin_1.level, self.changed['newlevel'])
 
     def test_permission(self):
-        self.assertTrue(sc_2.set_like_to_article(self.perm_data['member'], self.perm_data['post_data']))
-        self.assertTrue(sc_2.share_article(self.perm_data['member'], self.perm_data['article_id']))
+        self.assertTrue(sc_2.set_like_to_article(self.member_1, self.perm_data['post_data']))
+        self.assertTrue(sc_2.share_article(self.member_1, self.perm_data['article_id']))
         with self.assertRaises(sc_2.NoAccess):
-            self.assertTrue(sc_2.update_article(self.perm_data['member'], self.perm_data['update_data']))
+            self.assertTrue(sc_2.update_article(self.member_1, self.perm_data['update_data']))
         with self.assertRaises(sc_2.NoAccess):
-            self.assertTrue(sc_2.create_article(self.perm_data['member'], self.perm_data['post_data']))
+            self.assertTrue(sc_2.create_article(self.member_1, self.perm_data['post_data']))
         with self.assertRaises(sc_2.NoAccess):
-            self.assertTrue(sc_2.delete_article(self.perm_data['member'], self.perm_data['article_id']))
+            self.assertTrue(sc_2.delete_article(self.member_1, self.perm_data['article_id']))
         with self.assertRaises(sc_2.NoAccess):
-            self.assertTrue(sc_2.delete_group(self.perm_data['member'], self.perm_data['group_id'],
+            self.assertTrue(sc_2.delete_group(self.member_1, self.perm_data['group_id'],
                                               self.perm_data['level3']))
 
-        self.assertTrue(sc_2.set_like_to_article(self.perm_data['moderator'], self.perm_data['post_data']))
-        self.assertTrue(sc_2.share_article(self.perm_data['moderator'], self.perm_data['article_id']))
-        self.assertTrue(sc_2.update_article(self.perm_data['moderator'], self.perm_data['update_data']))
-        self.assertTrue(sc_2.create_article(self.perm_data['moderator'], self.perm_data['post_data']))
+        self.assertTrue(sc_2.set_like_to_article(self.moderator_1, self.perm_data['post_data']))
+        self.assertTrue(sc_2.share_article(self.moderator_1, self.perm_data['article_id']))
+        self.assertTrue(sc_2.update_article(self.moderator_1, self.perm_data['update_data']))
+        self.assertTrue(sc_2.create_article(self.moderator_1, self.perm_data['post_data']))
         with self.assertRaises(sc_2.NoAccess):
-            self.assertTrue(sc_2.delete_article(self.perm_data['moderator'], self.perm_data['article_id']))
+            self.assertTrue(sc_2.delete_article(self.moderator_1, self.perm_data['article_id']))
         with self.assertRaises(sc_2.NoAccess):
-            self.assertTrue(sc_2.delete_group(self.perm_data['moderator'], self.perm_data['group_id'],
+            self.assertTrue(sc_2.delete_group(self.moderator_1, self.perm_data['group_id'],
                                               self.perm_data['level3']))
 
-        self.assertTrue(sc_2.set_like_to_article(self.perm_data['admin'], self.perm_data['post_data']))
-        self.assertTrue(sc_2.share_article(self.perm_data['admin'], self.perm_data['article_id']))
-        self.assertTrue(sc_2.update_article(self.perm_data['admin'], self.perm_data['update_data']))
-        self.assertTrue(sc_2.create_article(self.perm_data['admin'], self.perm_data['post_data']))
-        self.assertTrue(sc_2.delete_article(self.perm_data['admin'], self.perm_data['article_id']))
-        self.assertTrue(sc_2.delete_group(self.perm_data['admin'], self.perm_data['group_id'],
+        self.assertTrue(sc_2.set_like_to_article(self.admin_1, self.perm_data['post_data']))
+        self.assertTrue(sc_2.share_article(self.admin_1, self.perm_data['article_id']))
+        self.assertTrue(sc_2.update_article(self.admin_1, self.perm_data['update_data']))
+        self.assertTrue(sc_2.create_article(self.admin_1, self.perm_data['post_data']))
+        self.assertTrue(sc_2.delete_article(self.admin_1, self.perm_data['article_id']))
+        self.assertTrue(sc_2.delete_group(self.admin_1, self.perm_data['group_id'],
                                           self.perm_data['level3']))
         with self.assertRaises(sc_2.NoAccess):
             self.assertTrue(sc_2.delete_group(self.perm_data['admin'], self.perm_data['group_id'],

@@ -1,33 +1,41 @@
+from Task_1.script_1 import Admin as Admin, Moderator as Moderator
+
+
 class NoAccess(Exception):
     pass
 
 
-def admin_l3_perm(func):
-    def wrap(user, action, level):
-        if user == "Admin":
-            if level >= 3:
-                return func(user, action)
-        raise NoAccess(Exception)
-    return wrap
+"""була ще така ідея
+def admin_perm(func):
+    def wrap(user, action, level=1, dija="delete_article"):
+        if (isinstance(user, Admin) and level >= 3) or (isinstance(user, Admin) and dija == "delete_article"):
+            return func(user, action)
+        else:
+            raise NoAccess(Exception)
+
+    return wrap"""
 
 
 def admin_perm(func):
-    def wrap(user, action):
-        if user == "Admin":
+    def wrap(user, action, level=0):
+        if isinstance(user, Admin) and (level == 0 or level >= 3):
             return func(user, action)
-        raise NoAccess(Exception)
+        else:
+            raise NoAccess(Exception)
+
     return wrap
 
 
 def moderator_perm(func):
     def wrap(user, action):
-        if user == "Moderator" or user == "Admin":
+        if isinstance(user, Moderator) or isinstance(user, Admin):
             return func(user, action)
         raise NoAccess(Exception)
+
     return wrap
 
 
-@admin_l3_perm  # для роботи цього декоратора потрібно передавати третій параметр - рівень андміністратора
+@admin_perm  # для роботи цього декоратора потрібно передавати (user, action, level, dija="delete_group")
 def delete_group(user, group_id):
     print("Group has been deleted")
     return True
